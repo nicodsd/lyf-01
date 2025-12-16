@@ -64,10 +64,10 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div className="max-w-md mx-auto min-h-screen bg-gray-50 shadow-2xl overflow-hidden relative">
+      <div className="mx-auto min-h-screen shadow-2xl overflow-hidden relative">
         <Routes>
           <Route path="/login" element={<Auth onLogin={handleLogin} />} />
-          
+
           <Route path="/" element={
             <ProtectedRoute user={user}>
               {user?.role === UserRole.PROVIDER ? (
@@ -104,27 +104,27 @@ export default function App() {
 
           <Route path="/notifications" element={
             <ProtectedRoute user={user}>
-               <Notifications notifications={notifications} />
+              <Notifications notifications={notifications} />
             </ProtectedRoute>
           } />
 
-           <Route path="/my-profile" element={
+          <Route path="/my-profile" element={
             <ProtectedRoute user={user}>
-               <div className="p-8 text-center pt-24">
-                  <h2 className="text-xl font-bold">Mi Perfil</h2>
-                  <p className="text-gray-500 mt-2">Esta sección permitiría editar tu información, subir certificados y ver estadísticas.</p>
-               </div>
+              <div className="p-8 text-center pt-24">
+                <h2 className="text-xl font-bold">Mi Perfil</h2>
+                <p className="text-gray-500 mt-2">Esta sección permitiría editar tu información, subir certificados y ver estadísticas.</p>
+              </div>
             </ProtectedRoute>
           } />
 
-           <Route path="/settings" element={
+          <Route path="/settings" element={
             <ProtectedRoute user={user}>
-               <div className="p-8 pt-24">
-                  <h2 className="text-xl font-bold mb-6">Cuenta</h2>
-                  <button onClick={() => setUser(null)} className="w-full py-3 text-red-600 font-semibold bg-red-50 rounded-xl">
-                    Cerrar Sesión
-                  </button>
-               </div>
+              <div className="p-8 pt-24">
+                <h2 className="text-xl font-bold mb-6">Cuenta</h2>
+                <button onClick={() => setUser(null)} className="w-full py-3 text-red-600 font-semibold bg-red-50 rounded-xl">
+                  Cerrar Sesión
+                </button>
+              </div>
             </ProtectedRoute>
           } />
 

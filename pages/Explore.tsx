@@ -3,8 +3,6 @@ import { ServiceCategory, ProviderProfile } from '../types';
 import { StarRating } from '../components/StarRating';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, MapPin, Filter, Bell } from 'lucide-react';
-
-// Mock Data
 const MOCK_PROVIDERS: ProviderProfile[] = [
   {
     id: '1',
@@ -67,7 +65,7 @@ const MOCK_PROVIDERS: ProviderProfile[] = [
     description: 'Servicio de limpieza profunda para hogares y oficinas. Detallista y confiable.',
     certifications: []
   },
-   {
+  {
     id: '5',
     name: 'Jorge Martinez',
     age: 52,
@@ -80,46 +78,39 @@ const MOCK_PROVIDERS: ProviderProfile[] = [
     phone: '5556677889',
     description: 'Gasista matriculado de primera categoría. Planos, habilitaciones y reparaciones.',
     certifications: [
-       { id: 'c4', title: 'Matrícula Gasista 1ra', institution: 'MetroGas', year: '2010' }
+      { id: 'c4', title: 'Matrícula Gasista 1ra', institution: 'MetroGas', year: '2010' }
     ]
   }
 ];
-
 interface ExploreProps {
   notificationCount: number;
 }
-
 export const Explore: React.FC<ExploreProps> = ({ notificationCount }) => {
   const [activeCategory, setActiveCategory] = useState<ServiceCategory | 'Todos'>('Todos');
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProviders, setFilteredProviders] = useState(MOCK_PROVIDERS);
   const navigate = useNavigate();
-
   useEffect(() => {
     let result = MOCK_PROVIDERS;
-
     if (activeCategory !== 'Todos') {
       result = result.filter(p => p.category === activeCategory);
     }
-
     if (searchTerm) {
       const lowerTerm = searchTerm.toLowerCase();
-      result = result.filter(p => 
-        p.name.toLowerCase().includes(lowerTerm) || 
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(lowerTerm) ||
         p.description.toLowerCase().includes(lowerTerm)
       );
     }
-
     setFilteredProviders(result);
   }, [activeCategory, searchTerm]);
-
   return (
     <div className="pb-24 pt-4 px-4">
       {/* Header & Search */}
-      <div className="mb-6 sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-2">
+      <div className="mb-6 sticky top-0  z-10 pt-2 pb-2">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">ServiConnect</h1>
-          <button 
+          <h1 className="text-2xl font-bold text-gray-900">ListoYa</h1>
+          <button
             onClick={() => navigate('/notifications')}
             className="relative p-2 bg-white rounded-full shadow-sm hover:bg-gray-50 border border-gray-200"
           >
@@ -129,7 +120,6 @@ export const Explore: React.FC<ExploreProps> = ({ notificationCount }) => {
             )}
           </button>
         </div>
-        
         <div className="relative">
           <input
             type="text"
@@ -141,14 +131,12 @@ export const Explore: React.FC<ExploreProps> = ({ notificationCount }) => {
           <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
         </div>
       </div>
-
       {/* Categories */}
       <div className="flex overflow-x-auto space-x-3 pb-4 mb-2 no-scrollbar">
         <button
           onClick={() => setActiveCategory('Todos')}
-          className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            activeCategory === 'Todos' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 shadow-sm border border-gray-100'
-          }`}
+          className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === 'Todos' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 shadow-sm border border-gray-100'
+            }`}
         >
           Todos
         </button>
@@ -156,50 +144,47 @@ export const Explore: React.FC<ExploreProps> = ({ notificationCount }) => {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeCategory === cat ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 shadow-sm border border-gray-100'
-            }`}
+            className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === cat ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 shadow-sm border border-gray-100'
+              }`}
           >
             {cat}
           </button>
         ))}
       </div>
-
       {/* Results List */}
-      <div className="space-y-4">
+      <div className="space-y-2">
         {filteredProviders.map((provider) => (
           <Link to={`/provider/${provider.id}`} key={provider.id} className="block">
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-4 transition-transform hover:scale-[1.01]">
-              <img 
-                src={provider.photoUrl} 
-                alt={provider.name} 
-                className="w-20 h-20 rounded-lg object-cover bg-gray-200 flex-shrink-0"
-              />
+              <div className="flex relative flex-col items-center">
+                <div className="flex items-center h-10 flex-col px-2 py-1 rounded-md absolute bottom-0">
+                  <span className="font-bold text-gray-700 ml-1">{provider.rating}</span>
+                  <StarRating rating={provider.rating} size={10} />
+                </div>
+                <img
+                  src={provider.photoUrl}
+                  alt={provider.name}
+                  className="w-16 h-16 rounded-lg object-cover bg-gray-200 flex-shrink-0"
+                />
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between items-start">
                   <div>
+                    <div className="flex items-center text-gray-500 text-xs">
+                      <MapPin size={12} className="mr-1" />
+                      {provider.location}
+                    </div>
                     <h3 className="font-semibold text-gray-900 truncate">{provider.name}</h3>
                     <p className="text-blue-600 text-xs font-medium uppercase tracking-wide">{provider.category}</p>
                   </div>
-                  <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-md">
-                     <StarRating rating={provider.rating} size={12} />
-                     <span className="text-xs font-bold text-gray-700 ml-1">{provider.rating}</span>
-                  </div>
                 </div>
-                
-                <div className="flex items-center mt-2 text-gray-500 text-xs">
-                  <MapPin size={12} className="mr-1" />
-                  {provider.location}
-                </div>
-                
-                <p className="mt-2 text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                <p className="mt-1 text-sm text-gray-600 line-clamp-2 leading-relaxed">
                   {provider.description}
                 </p>
               </div>
             </div>
           </Link>
         ))}
-
         {filteredProviders.length === 0 && (
           <div className="text-center py-12">
             <Filter size={48} className="mx-auto text-gray-300 mb-4" />
