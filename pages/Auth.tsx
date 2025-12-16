@@ -12,7 +12,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   const [selectedRole, setSelectedRole] = useState<UserRole>(UserRole.CLIENT);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  
+
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,23 +29,22 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           {isRegister ? 'Crea tu cuenta' : 'Inicia Sesión'}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Bienvenido a ServiConnect
+          Bienvenido a ListoYa
         </p>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          
+
           {/* Role Selection */}
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"
               onClick={() => setSelectedRole(UserRole.CLIENT)}
-              className={`flex flex-col items-center p-4 border rounded-xl transition-all ${
-                selectedRole === UserRole.CLIENT 
-                  ? 'border-blue-600 bg-blue-50 text-blue-700' 
-                  : 'border-gray-200 bg-white text-gray-500'
-              }`}
+              className={`flex flex-col items-center p-4 border rounded-xl transition-all ${selectedRole === UserRole.CLIENT
+                ? 'border-blue-600 bg-blue-50 text-blue-700'
+                : 'border-gray-200 bg-white text-gray-500'
+                }`}
             >
               <UserIcon size={24} className="mb-2" />
               <span className="text-sm font-medium">Soy Cliente</span>
@@ -55,11 +54,10 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
             <button
               type="button"
               onClick={() => setSelectedRole(UserRole.PROVIDER)}
-              className={`flex flex-col items-center p-4 border rounded-xl transition-all ${
-                selectedRole === UserRole.PROVIDER 
-                  ? 'border-blue-600 bg-blue-50 text-blue-700' 
-                  : 'border-gray-200 bg-white text-gray-500'
-              }`}
+              className={`flex flex-col items-center p-4 border rounded-xl transition-all ${selectedRole === UserRole.PROVIDER
+                ? 'border-blue-600 bg-blue-50 text-blue-700'
+                : 'border-gray-200 bg-white text-gray-500'
+                }`}
             >
               <Briefcase size={24} className="mb-2" />
               <span className="text-sm font-medium">Soy Profesional</span>
@@ -68,22 +66,22 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           </div>
 
           {isRegister && (
-             <div>
-             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-               Nombre Completo
-             </label>
-             <div className="mt-2">
-               <input
-                 id="name"
-                 name="name"
-                 type="text"
-                 required
-                 value={name}
-                 onChange={(e) => setName(e.target.value)}
-                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 px-3"
-               />
-             </div>
-           </div>
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                Nombre Completo
+              </label>
+              <div className="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 px-3"
+                />
+              </div>
+            </div>
           )}
 
           <div>

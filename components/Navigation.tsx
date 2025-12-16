@@ -11,15 +11,15 @@ export const Navigation: React.FC<NavigationProps> = ({ role }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const isActive = (path: string) => currentPath === path ? 'text-blue-600' : 'text-gray-400';
+  const isActive = (path: string) => currentPath === path ? 'text-blue-600' : 'text-gray-500';
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 px-6 flex justify-between items-center z-50 shadow-lg pb-safe">
+    <div className="fixed bottom-4 w-[70%] mx-auto left-0 right-0 rounded-3xl bg-white border-t border-gray-400 py-2 px-6 flex justify-around items-center z-50 shadow-2xl pb-safe">
       <Link to="/" className={`flex flex-col items-center ${isActive('/')}`}>
         <Home size={24} />
         <span className="text-[10px] mt-1 font-medium">Inicio</span>
       </Link>
-      
+
       {role === UserRole.CLIENT && (
         <Link to="/explore" className={`flex flex-col items-center ${isActive('/explore')}`}>
           <Search size={24} />
