@@ -1,3 +1,4 @@
+"use server";
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -23,9 +24,13 @@ export const generateSmartMessage = async (
       contents: prompt,
     });
 
-    return response.text.trim();
+    const text = response.text;
+    if (!text) {
+      throw new Error("No text generated");
+    }
+    return text.trim();
   } catch (error) {
     console.error("Error generating smart message:", error);
-    return `Hola ${providerName}, necesito tus servicios de ${serviceType}. Mi problema es: ${userIssue}. ¿Podrías contactarme?`;
+    return `Hola ${providerName}, te hablo desde ListoYa y estoy interesado en contratar tu servicio de ${serviceType}. ¿Podrías darme más información sobre tu trabajo?`;
   }
 };
